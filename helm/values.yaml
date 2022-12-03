@@ -1,0 +1,48 @@
+image:
+  repository: lukeinstruct/social
+  tag: latest
+  pullPolicy: Always
+  imagePullSecrets: []
+
+configmap:
+  data:
+    DJANGO_SETTINGS_MODULE: config.settings
+    PYTHONDONTWRITEBYTECODE: 1
+    PYTHONUNBUFFERED: 1
+
+persistence:
+  enabled: true
+
+djangoServer:
+  replicaCount: 1
+
+  command: ["./start-dev.sh"]
+
+  podSecurityContext: {}
+
+  securityContext: {}
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 8000
+
+  ingress:
+    enabled: true
+    annotations: {}
+
+    path: /
+    pathType: ImplementationSpecific
+    hosts:
+      - lucasvinicius.site
+
+    tls: []
+
+  nodeSelector: {}
+  tolerations: []
+  resources: {}
+  affinity: {}
+
+
+collectstaticJob:
+  enabled: true

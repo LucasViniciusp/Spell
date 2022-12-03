@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-django-server
+  labels:
+    {{- include "django-helm.labels" . | nindent 4 }}
+  {{- with .Values.djangoServer.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: nginx
+{{- if .Values.djangoServer.ingress.tls }}
+  tls:
+  {{- range .Values.djangoServer.ingress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
+  rules:
+  {{- range .Values.djangoServer.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $.Values.djangoServer.ingress.path }}
+            pathType: {{ $.Values.djangoServer.ingress.pathType }}
+            backend:
+              service:
+                name: api-django-server
+                port: 
+                  name: http
+  {{- end }}

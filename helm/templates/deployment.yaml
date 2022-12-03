@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-django-server
+  labels:
+    {{- include "django-helm.labels" . | nindent 4 }}
+    app.kubernetes.io/component: django-server
+spec:
+  replicas: {{ .Values.djangoServer.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "django-helm.labels" . | nindent 6 }}
+      app.kubernetes.io/component: django-server
+  template:
+    metadata:
+      labels:
+        {{- include "django-helm.labels" . | nindent 8 }}
+        app.kubernetes.io/component: django-server
+      annotations:
+        checksum/config: {{include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      {{- with .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.djangoServer.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.djangoServer.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.djangoServer.command }}
+          command:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
+          env:
+            - name: {{ .Release.Name }}-django-server
+              value: stdout
+          ports:
+            - name: http
+              containerPort: {{ .Values.djangoServer.service.port }}
+              protocol: TCP
