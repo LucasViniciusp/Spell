@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:12.1
+    container_name: database
+    ports:
+    - "5434:5432"
+    volumes:
+      - ./docker/postgres:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rush
+  api:
+    build:
+      context: .
+      target: DevServer
+    container_name: api
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - .:/code
+    stdin_open: true
+    tty: true
+    restart: always
