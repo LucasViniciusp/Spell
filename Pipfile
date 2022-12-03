@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+djangorestframework = "*"
+django-filter = "*"
+djangorestframework-simplejwt = "*"
+requests = "*"
+django-cors-headers = "*"
+python-decouple = "*"
+django-extensions = "*"
+black = "*"
+model-bakery = "*"
+parameterized = "*"
+psycopg2-binary = "*"
+
+[requires]
+python_version = "3.8"
