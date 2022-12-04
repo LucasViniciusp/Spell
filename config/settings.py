@@ -14,6 +14,9 @@ from pathlib import Path
 from datetime import timedelta
 from decouple import config as dotenv
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,6 +37,16 @@ ALLOWED_HOSTS = dotenv(
     "ALLOWED_HOSTS",
     default="*",
     cast=lambda v: [s.strip() for s in v.split(",")],
+)
+
+sentry_sdk.init(
+    dsn=dotenv("GLITCHTIP_DNS", default=None),
+    integrations=[
+        DjangoIntegration(),
+    ],
+
+    auto_session_tracking=False,
+    traces_sample_rate=1.0,
 )
 
 AUTH_USER_MODEL = "rush.User"
