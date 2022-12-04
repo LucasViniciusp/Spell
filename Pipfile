@@ -18,6 +18,7 @@ black = "*"
 model-bakery = "*"
 parameterized = "*"
 psycopg2-binary = "*"
+sentry-sdk = "==1.11.1"
 
 [requires]
 python_version = "3.8"
