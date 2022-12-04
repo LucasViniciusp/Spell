@@ -6,12 +6,18 @@ image:
 
 configmap:
   data:
+    DEBUG: True
+    SECRET_KEY: "!!!SET SECRET_KEY!!!"
     DJANGO_SETTINGS_MODULE: config.settings
+    DATABASE_ENGINE: "django.db.backends.postgresql"
     PYTHONDONTWRITEBYTECODE: 1
     PYTHONUNBUFFERED: 1
 
-persistence:
-  enabled: true
+database:
+  host: postgres
+  username: postgres
+  password: postgres
+  database: social
 
 djangoServer:
   replicaCount: 1
