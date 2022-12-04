@@ -38,6 +38,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config
+            - secretRef:
+                name: {{ .Release.Name }}-env
           env:
             - name: {{ .Release.Name }}-django-server
               value: stdout
