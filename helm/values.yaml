@@ -52,3 +52,6 @@ djangoServer:
 
 collectstaticJob:
   enabled: true
+
+glitchtip:
+  dns: key@glitchtip.lucasvinicius.site
