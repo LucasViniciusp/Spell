@@ -27,7 +27,6 @@ djangoServer:
   podSecurityContext: {}
 
   securityContext: {}
-    # runAsUser: 1000
 
   service:
     type: ClusterIP
@@ -48,10 +47,6 @@ djangoServer:
   tolerations: []
   resources: {}
   affinity: {}
-
-
-collectstaticJob:
-  enabled: true
 
 glitchtip:
   dns: key@glitchtip.lucasvinicius.site
