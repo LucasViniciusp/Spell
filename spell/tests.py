@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 from model_bakery import baker
 from parameterized import parameterized
 
-from rush.models import User
+from spell.models import User
 
 
 # Create your tests here.

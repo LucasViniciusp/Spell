@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from rush import views
+from spell import views
 
 
 router = routers.DefaultRouter()

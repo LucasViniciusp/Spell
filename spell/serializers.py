@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rush.models import User, Post, Follower
+from spell.models import User, Post, Follower
 
 
 # Create serializers here.

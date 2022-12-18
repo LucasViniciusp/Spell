@@ -49,7 +49,7 @@ sentry_sdk.init(
     traces_sample_rate=1.0,
 )
 
-AUTH_USER_MODEL = "rush.User"
+AUTH_USER_MODEL = "spell.User"
 
 # Application definition
 
@@ -72,7 +72,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "rush.apps.RushConfig",
+    "spell.apps.SpellConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

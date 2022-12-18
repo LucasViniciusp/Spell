@@ -8,9 +8,9 @@ from rest_framework.permissions import (
     AllowAny,
 )
 
-from rush.models import User, Post, Follower
-from rush.permissions import UserObjectPermission
-from rush.serializers import (
+from spell.models import User, Post, Follower
+from spell.permissions import UserObjectPermission
+from spell.serializers import (
     RegisterSerializer,
     FollowerSerializer,
     UserSerializer,

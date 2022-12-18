@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from rush.models import User
+from spell.models import User
 
 
 class UserObjectPermission(permissions.BasePermission):

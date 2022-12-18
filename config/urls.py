@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rush import urls as rush_urls
+from spell import urls as spell_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(rush_urls)),
+    path("api/", include(spell_urls)),
 ]
