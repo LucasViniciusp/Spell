@@ -134,3 +134,7 @@ dmypy.json
 # Docker
 .dockerignore
 .
+
+#prefect
+deployments/*
+.prefectignore

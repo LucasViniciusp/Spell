@@ -45,7 +45,8 @@ CMD ["prefect", "orion", "start"]
 # =============================================================================
 FROM dev as agent
 
-ENV PYTHONPATH=/code
+ENV PYTHONPATH /code
+ENV PREFECT_AGENT_PROCESS true
 ENV DJANGO_SETTINGS_MODULE config.settings
 
-CMD ["prefect", "agent", "start", "-q", "default"]
+CMD ["sh", "start-prefect.sh"]

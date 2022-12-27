@@ -167,19 +167,20 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Third party apps
-
-LOGGING = {
-    "version": 1,
-    "handlers": {
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
+# logger django.db.backends conflicts with default prefect logging
+if not dotenv("PREFECT_AGENT_PROCESS", default=False):
+    LOGGING = {
+        "version": 1,
+        "handlers": {
+            "console": {
+                "level": "DEBUG",
+                "class": "logging.StreamHandler",
+            },
         },
-    },
-    "loggers": {"django.db.backends": {"level": "INFO", "handlers": ["console"]}},
-}
+        "loggers": {"django.db.backends": {"level": "INFO", "handlers": ["console"]}},
+    }
 
+# Third party apps
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
