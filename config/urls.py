@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from spell import urls as spell_urls
+from league import urls as league_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(spell_urls)),
+    path("api/spell/", include(spell_urls)),
+    path("api/league/", include(league_urls)),
 ]
