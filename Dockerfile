@@ -32,3 +32,20 @@ ENV ALLOWED_HOSTS *
 RUN chmod +x /code/*.sh
 
 CMD ["sh", "start-dev.sh"]
+
+# =============================================================================
+# ORION - Roda o servidor Prefect ORION
+# =============================================================================
+FROM dev as orion
+
+CMD ["prefect", "orion", "start"]
+
+# =============================================================================
+# AGENT - Roda o Prefect AGENT
+# =============================================================================
+FROM dev as agent
+
+ENV PYTHONPATH=/code
+ENV DJANGO_SETTINGS_MODULE config.settings
+
+CMD ["prefect", "agent", "start", "-q", "default"]
