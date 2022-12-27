@@ -21,7 +21,7 @@ class BaseTest(TestCase):
 class RegisterViewTestCase(BaseTest):
     @parameterized.expand(["GET", "PUT", "PATCH", "DELETE"])
     def test_register_not_allowed_methods(self, method):
-        response = self.client.generic(method=method, path="/api/register/")
+        response = self.client.generic(method=method, path="/api/spell/register/")
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_register_user(self):
@@ -35,7 +35,7 @@ class RegisterViewTestCase(BaseTest):
             "first_name": "test",
             "last_name": "test",
         }
-        response = self.client.post(path="/api/register/", data=new_user_data)
+        response = self.client.post(path="/api/spell/register/", data=new_user_data)
         new_user = User.objects.last()
 
         self.assertEqual(User.objects.count(), 2)
@@ -48,7 +48,7 @@ class RegisterViewTestCase(BaseTest):
 class AuthenticationTestCase(BaseTest):
     def test_invalid_user_credentials(self):
         response = self.client.post(
-            path="/api/token/",
+            path="/api/spell/token/",
             data={"username": "invalid_username", "password": "invalid_password"},
         )
 
@@ -57,7 +57,7 @@ class AuthenticationTestCase(BaseTest):
 
     def test_cant_auth_with_empty_password(self):
         response = self.client.post(
-            path="/api/token/", data={"username": "invalid_username"}
+            path="/api/spell/token/", data={"username": "invalid_username"}
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertDictEqual({"password": ["This field is required."]}, response.json())
@@ -67,7 +67,7 @@ class AuthenticationTestCase(BaseTest):
         self.user.save()
 
         response = self.client.post(
-            path="/api/token/", data={"username": "setupuser", "password": "pass"}
+            path="/api/spell/token/", data={"username": "setupuser", "password": "pass"}
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -82,7 +82,7 @@ class UserViewTestCase(BaseTest):
         self.client.force_authenticate(user=self.user)
         updated_user_data = {"first_name": "update_test"}
         response = self.client.patch(
-            path=f"/api/users/{self.user.id}/", data=updated_user_data
+            path=f"/api/spell/users/{self.user.id}/", data=updated_user_data
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -93,7 +93,7 @@ class UserViewTestCase(BaseTest):
         Should be possible to update the authenticated user
         """
         self.client.force_authenticate(user=self.user)
-        response = self.client.delete(path=f"/api/users/{self.user.id}/")
+        response = self.client.delete(path=f"/api/spell/users/{self.user.id}/")
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(User.objects.exists())
