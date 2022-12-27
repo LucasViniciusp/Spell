@@ -2,7 +2,7 @@ ARG DOCKER_REGISTRY=index.docker.io
 # =============================================================================
 # base - Python e lista de dependências
 # =============================================================================
-FROM $DOCKER_REGISTRY/python:3.8 as base
+FROM $DOCKER_REGISTRY/python:3.9 as base
 
 WORKDIR /code
 
@@ -12,15 +12,17 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE config.settings
 
 RUN pip install --upgrade pip
-RUN pip install pipenv
-COPY Pipfile /code/
-COPY Pipfile.lock /code/
+RUN pip install poetry
+
+COPY poetry.lock pyproject.toml /code/
+
+RUN poetry config virtualenvs.create false
 
 # =============================================================================
 # development - Instala dependências de dev e copia o código fonte
 # =============================================================================
 FROM base as dev
-RUN pipenv install --system --deploy --dev
+RUN poetry install --no-root --sync
 COPY . /code/
 
 # =============================================================================
