@@ -1,0 +1,41 @@
+###
+### A complete description of a Prefect Deployment for flow 'GetSummonerData'
+###
+name: get_summoner_data
+description: null
+version: 9e25d26d1fca6bde068308401186a893
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: GetSummonerData
+manifest_path: null
+storage: null
+path: /code
+entrypoint: league/workflows/get_summoner_data.py:get_summoner_data
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    summonerName:
+      title: summonerName
+      type: string
+  required:
+  - summonerName
+  definitions: null
