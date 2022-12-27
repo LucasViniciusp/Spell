@@ -1,7 +1,4 @@
-import django
 from prefect import flow
-
-django.setup()
 
 from tasks import (
     get_player_profile_data,
@@ -12,7 +9,7 @@ from tasks import (
 )
 
 
-@flow(name="GetSummonerData")
+@flow(name="get_summoner_data")
 def get_summoner_data(summonerName: str):
     player_profile_data = get_player_profile_data(summonerName)
     player_profile_data = transform_player_data(player_profile_data)

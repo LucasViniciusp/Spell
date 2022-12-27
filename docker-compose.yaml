@@ -40,7 +40,6 @@ services:
       PREFECT_API_URL: http://host.docker.internal:4200/api
   agent-spell:
     container_name: agent-spell
-    command: "prefect agent start -q default"
     volumes:
       - .:/code
     build:

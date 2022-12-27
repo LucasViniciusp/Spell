@@ -1,28 +1,28 @@
 from rest_framework import mixins, status
 from rest_framework.response import Response
-from rest_framework.generics import CreateAPIView
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.permissions import AllowAny
+from rest_framework.viewsets import GenericViewSet
 
 from prefect.deployments import run_deployment
 
-from league.models import Summoner, Queue
+from league.models import Summoner
 from league.serializers import SummonerSerializer
 
 
 # Create your views here.
 class SummonerViewset(
     mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
     mixins.ListModelMixin,
     GenericViewSet,
 ):
 
     queryset = Summoner.objects.all()
+    permission_classes = (AllowAny,)
     serializer_class = SummonerSerializer
 
     def create(self, request, *args, **kwargs):
         response = run_deployment(
-            "GetSummonerData/get_summoner_data",
+            "get_summoner_data/get_summoner_data",
             parameters={"summonerName": request.data.get("name")},
             timeout=0,
         )

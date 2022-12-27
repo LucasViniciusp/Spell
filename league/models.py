@@ -1,5 +1,9 @@
 from django.db import models
+from decouple import config as dotenv
 
+if dotenv("PREFECT_AGENT_PROCESS", default=False):
+    import django
+    django.setup()
 
 class Summoner(models.Model):
     id = models.CharField(primary_key=True, max_length=120)
