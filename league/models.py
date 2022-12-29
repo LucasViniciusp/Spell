@@ -19,7 +19,7 @@ class Queue(models.Model):
     summoner = models.ForeignKey(
         Summoner, on_delete=models.PROTECT, related_name="queues"
     )
-    league_id = models.CharField(unique=True, max_length=120)
+    league_id = models.CharField(max_length=120)
     type = models.CharField(max_length=40)
     tier = models.CharField(max_length=40)
     rank = models.CharField(max_length=40)
