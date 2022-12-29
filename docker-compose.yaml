@@ -29,9 +29,7 @@ services:
     restart: always
   orion-spell:
     container_name: orion-spell
-    build:
-      context: .
-      target: orion
+    image: prefecthq/prefect:2.7-python3.9
     ports:
     - "4200:4200"
     command: "prefect orion start"
