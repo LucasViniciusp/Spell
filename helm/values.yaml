@@ -1,5 +1,5 @@
 image:
-  repository: lukeinstruct/social
+  repository: lukeinstruct/spell
   tag: latest
   pullPolicy: Always
   imagePullSecrets: []
@@ -17,7 +17,7 @@ database:
   host: postgres
   username: postgres
   password: postgres
-  database: social
+  database: postgres
 
 djangoServer:
   replicaCount: 1
@@ -49,4 +49,7 @@ djangoServer:
   affinity: {}
 
 glitchtip:
-  dns: key@glitchtip.lucasvinicius.site
+  dns: https://key@glitchtip.lucasvinicius.site/1
+
+prefect:
+  api: http://prefect-service.prefect:4200/api

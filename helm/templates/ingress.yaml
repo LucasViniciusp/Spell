@@ -29,7 +29,7 @@ spec:
             pathType: {{ $.Values.djangoServer.ingress.pathType }}
             backend:
               service:
-                name: api-django-server
+                name: {{ $.Release.Name }}-django-server
                 port: 
                   name: http
   {{- end }}
